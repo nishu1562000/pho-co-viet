@@ -1,0 +1,324 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Strejorleo design system
+   Sailcloth paper · harbour ink · Reade Street brick
+   ────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Colour */
+  --color-paper: #f3eee5; /* primary background */
+  --color-paper-2: #e9e2d5; /* secondary background */
+  --color-paper-3: #ddd4c4; /* image placeholder / pressed */
+  --color-ink: #16212a; /* text, dark sections */
+  --color-ink-2: #22303b; /* dark section hover */
+  --color-muted: #5b6670; /* muted text on paper (5.0:1) */
+  --color-muted-dark: #a9b2b8; /* muted text on ink (7.5:1) */
+  --color-brick: #9b3a24; /* accent (7.2:1 on paper) */
+  --color-brick-hover: #7f2e1c;
+  --color-brick-light: #d9826a; /* accent on ink (5.3:1) */
+  --color-line: rgb(22 33 42 / 0.14);
+  --color-line-strong: rgb(22 33 42 / 0.32);
+  --color-line-dark: rgb(243 238 229 / 0.16);
+
+  /* Type */
+  --font-display: var(--font-instrument-serif), "Times New Roman", serif;
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-3xl: 120rem;
+}
+
+:root {
+  /* Spacing scale (4px base) — used via Tailwind's default scale plus these
+     fluid tokens for layout rhythm. */
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  --section: clamp(5.5rem, 3.5rem + 8vw, 12rem);
+  --section-sm: clamp(3.5rem, 2.5rem + 4vw, 7rem);
+  --header-h: 5.5rem;
+  --header-h-compact: 4rem;
+
+  color-scheme: light;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h-compact);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-brick);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brick);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-brick-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Layout helpers ──────────────────────────────────────────── */
+
+@utility shell {
+  width: 100%;
+  max-width: 108rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+@utility section-y-sm {
+  padding-block: var(--section-sm);
+}
+
+/* ── Type scale ──────────────────────────────────────────────── */
+
+@utility type-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  /* Also capped by viewport height so the hero composes on short laptops. */
+  font-size: clamp(3.4rem, min(1.2rem + 8.6vw, 1rem + 12svh), 10.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+}
+
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 1.7rem + 5vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.35rem, 1.6rem + 3vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.65rem, 1.35rem + 1.1vw, 2.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+@utility type-lead {
+  font-size: clamp(1.125rem, 1.02rem + 0.4vw, 1.375rem);
+  line-height: 1.55;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@utility type-caption {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+@utility type-nav {
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility type-button {
+  font-size: 0.8125rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── Links: animated underline ───────────────────────────────── */
+
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 0.15em;
+  transition: background-size 500ms var(--ease-out-expo);
+
+  @media (hover: hover) {
+    &:hover {
+      background-size: 0% 1px;
+      background-position: 100% 100%;
+    }
+  }
+}
+
+@utility link-reveal {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 0.15em;
+  transition: background-size 500ms var(--ease-out-expo);
+
+  &:hover,
+  &:focus-visible,
+  &[aria-current="page"] {
+    background-size: 100% 1px;
+    background-position: 0 100%;
+  }
+}
+
+/* ── Motion ──────────────────────────────────────────────────── */
+
+/* Scroll reveal. Elements are only hidden when JS is present (the `js` class
+   is set by an inline script before first paint), so content is always
+   visible without JS and with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.75rem, 0);
+    transition:
+      opacity 900ms var(--ease-out-expo),
+      transform 900ms var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  .js [data-reveal="fade"] {
+    transform: none;
+  }
+
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Hero: line-by-line type reveal and image unveil on load */
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .hero-line > span {
+    display: block;
+    animation: rise 1100ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .hero-fade {
+    animation: fade-up 900ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  /* Desktop only: on phones the hero photo is the LCP element at the fold,
+     so it paints immediately rather than waiting on an entrance. */
+  @media (min-width: 64rem) {
+    .hero-media {
+      animation: unveil 1400ms var(--ease-in-out-soft) both;
+    }
+
+    .hero-media img {
+      animation: settle 2200ms var(--ease-out-expo) both;
+    }
+  }
+
+  /* Gentle parallax, progressive enhancement: CSS scroll-driven animations
+     only, no JS scroll listeners. */
+  @supports (animation-timeline: view()) {
+    .parallax img {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      scale: 1.12;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes unveil {
+  from {
+    clip-path: inset(0 0 12% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, -5%, 0);
+  }
+  to {
+    transform: translate3d(0, 5%, 0);
+  }
+}

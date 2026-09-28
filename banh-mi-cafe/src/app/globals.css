@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Banh Mi Cafe design system
+   Rice paper · phin coffee · chili · fresh herb
+   ────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Colour */
+  --color-rice: #f7f1e6; /* primary background */
+  --color-rice-2: #efe5d3; /* secondary background */
+  --color-rice-3: #e2d5bf; /* image placeholder */
+  --color-phin: #231915; /* text, dark sections */
+  --color-phin-2: #33251f;
+  --color-muted: #665849; /* muted on rice (6:1), rice-2 (5.4:1) */
+  --color-muted-dark: #c2b2a3; /* muted on phin (8:1) */
+  --color-chili: #b3331c; /* accent + primary CTA (5.5:1 on rice, 5:1 on rice-2, 6.2:1 white-on) */
+  --color-chili-hover: #8f2513;
+  --color-chili-light: #f08a6c; /* chili on phin (6.7:1) */
+  --color-herb: #2f5d46; /* secondary accent (7:1 on rice) */
+  --color-lantern: #eeb445; /* highlight on phin only */
+  --color-line: rgb(35 25 21 / 0.14);
+  --color-line-strong: rgb(35 25 21 / 0.3);
+  --color-line-dark: rgb(247 241 230 / 0.16);
+
+  /* Type */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius: soft, like a paper wrapper, never pill-shaped cards */
+  --radius-card: 0.375rem;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 3.5rem);
+  --section: clamp(5rem, 3.25rem + 7vw, 11rem);
+  --section-sm: clamp(3.5rem, 2.5rem + 4vw, 7rem);
+  --header-h: 5rem;
+  --header-h-compact: 4rem;
+  color-scheme: light;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h-compact);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-rice);
+  color: var(--color-phin);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-chili);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-chili);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-lantern);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Layout ──────────────────────────────────────────────────── */
+
+@utility shell {
+  width: 100%;
+  max-width: 106rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+/* ── Type scale ──────────────────────────────────────────────── */
+
+@utility type-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3.1rem, min(1rem + 8.2vw, 0.5rem + 11.5svh), 9.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 1.6rem + 4.6vw, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 1.5rem + 2.9vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.95rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+@utility type-lead {
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.55;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@utility type-caption {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility type-button {
+  font-size: 0.9375rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+/* Italic display accent, e.g. "slow broth." */
+@utility accent {
+  font-family: var(--font-fraunces-italic), var(--font-display);
+  font-style: italic;
+}
+
+/* ── Links ───────────────────────────────────────────────────── */
+
+@utility link-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color 200ms, text-underline-offset 300ms var(--ease-out-expo);
+
+  &:hover {
+    text-decoration-color: currentColor;
+    text-underline-offset: 0.3em;
+  }
+}
+
+@utility link-nav {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-chili);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 450ms var(--ease-out-expo);
+  }
+
+  &:hover::after,
+  &[aria-current="page"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ── Motion ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0);
+    transition:
+      opacity 800ms var(--ease-out-expo),
+      transform 800ms var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+  }
+
+  .hero-line > span {
+    display: block;
+    animation: rise 1000ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .hero-fade {
+    animation: fade-up 800ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  @media (min-width: 64rem) {
+    .hero-float {
+      animation: float-in 1200ms var(--ease-out-expo) both;
+      animation-delay: calc(var(--d, 0) * 1ms);
+    }
+  }
+
+  .marquee-track {
+    animation: marquee 48s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @supports (animation-timeline: view()) {
+    .parallax img {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      scale: 1.1;
+    }
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.5rem, 0);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, -4%, 0);
+  }
+  to {
+    transform: translate3d(0, 4%, 0);
+  }
+}
