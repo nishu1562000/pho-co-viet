@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Afghan Restaurant Geelong design system
+   Charcoal · saffron · pomegranate · warm cream
+   All text pairs below pass WCAG AA (ratios noted).
+   ────────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-charcoal: #14100d; /* dark sections + text on cream (16:1) */
+  --color-charcoal-2: #231b15; /* raised surfaces on charcoal */
+  --color-charcoal-3: #33281f; /* image placeholder on dark */
+  --color-cream: #f6ecdb; /* light sections */
+  --color-cream-2: #efe1c8; /* alt light section */
+  --color-cream-3: #e3cfae; /* image placeholder, borders on cream */
+  --color-muted: #6b5645; /* muted on cream (5.9:1) */
+  --color-muted-dark: #c9b79d; /* muted on charcoal (9.7:1) */
+  --color-saffron: #e6a93a; /* accents on charcoal only (9.1:1) */
+  --color-saffron-deep: #8f5d0c; /* saffron text on cream (4.8:1) */
+  --color-pomegranate: #b3232f; /* buttons, white text (6.6:1) */
+  --color-pomegranate-hover: #9e1f2a;
+  --color-pomegranate-deep: #8a1c26; /* pomegranate text on cream (7.9:1) */
+  --color-pomegranate-light: #f08c8c; /* pomegranate text on charcoal (8:1) */
+  --color-line: rgb(20 16 13 / 0.14);
+  --color-line-dark: rgb(246 236 219 / 0.14);
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 0.625rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: clamp(1rem, 0.5rem + 2.4vw, 3rem);
+  --section: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --header-h: 4.25rem;
+  color-scheme: light;
+
+  /* Eight-point star tile (two squares at 45°), the site's one ornament. */
+  --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cg fill='none' stroke='%23e6a93a' stroke-width='1.1'%3E%3Crect x='7' y='7' width='10' height='10'/%3E%3Crect x='7' y='7' width='10' height='10' transform='rotate(45 12 12)'/%3E%3C/g%3E%3Cg fill='%23e6a93a'%3E%3Ccircle cx='0' cy='0' r='1.4'/%3E%3Ccircle cx='24' cy='0' r='1.4'/%3E%3Ccircle cx='0' cy='24' r='1.4'/%3E%3Ccircle cx='24' cy='24' r='1.4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.5rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-pomegranate);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-pomegranate);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-saffron);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@utility shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+/* Thin tiled band used as a section divider / border. */
+@utility tile-band {
+  height: 1.5rem;
+  background-color: var(--color-charcoal);
+  background-image: var(--tile);
+  background-size: 1.5rem 1.5rem;
+  background-position: center;
+  opacity: 1;
+}
+
+/* A quieter variant: a single row of stars at low opacity over any background. */
+@utility tile-rule {
+  height: 1.5rem;
+  background-image: var(--tile);
+  background-size: 1.5rem 1.5rem;
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: 0.55;
+}
+
+/* Type scale */
+@utility type-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 1.3rem + 5.6vw, 5.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+@utility type-h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.45rem, 1.25rem + 0.8vw, 1.9rem);
+  line-height: 1.15;
+}
+
+@utility type-lead {
+  font-size: clamp(1.075rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@utility type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1.45;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility link-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color 200ms;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Motion: all of it is opt-in to no-preference */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+    transition:
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-in {
+    animation: hero-in 900ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .ember {
+    animation: ember 5s ease-in-out infinite alternate;
+  }
+}
+
+/* Transform only, no fade: text/images at opacity 0 don't count as painted,
+   which would push Largest Contentful Paint back by the animation length. */
+@keyframes hero-in {
+  from {
+    transform: translate3d(0, 0.75rem, 0);
+  }
+}
+
+@keyframes ember {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
