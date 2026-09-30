@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Pho Viet design system
+   Lacquer red · warm cream · dark wood · lantern gold
+   ────────────────────────────────────────────────────────────── */
+
+@theme {
+  --color-cream: #faf3e6; /* page background */
+  --color-cream-2: #f2e6d0; /* alt section background */
+  --color-cream-3: #e6d5b8; /* image placeholder, borders */
+  --color-wood: #3b2418; /* text + dark sections */
+  --color-wood-2: #4d3122;
+  --color-muted: #6e5a4b; /* muted on cream (6:1) */
+  --color-muted-dark: #d6c3ad; /* muted on wood (8:1) */
+  --color-red: #a11d21; /* primary accent + CTA (7.1:1 on cream, 7.7:1 white-on) */
+  --color-red-hover: #7f1519;
+  --color-red-light: #f2a08a; /* red text on wood (6.5:1) */
+  --color-gold: #e0a43a; /* lantern gold, on wood only */
+  --color-line: rgb(59 36 24 / 0.14);
+  --color-line-dark: rgb(250 243 230 / 0.16);
+
+  --font-serif: var(--font-dm-serif), Georgia, serif;
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 0.75rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: clamp(1rem, 0.5rem + 2.4vw, 3rem);
+  --section: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --header-h: 4.5rem;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.5rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-wood);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-red);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@utility shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+/* Type scale */
+@utility type-display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.9rem, 1.4rem + 6vw, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+@utility type-h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+
+@utility type-h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem);
+  line-height: 1.12;
+}
+
+@utility type-lead {
+  font-size: clamp(1.075rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@utility type-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility link-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color 200ms;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Motion: all of it is opt-in to no-preference */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+    transition:
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  .js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-in {
+    animation: hero-in 900ms var(--ease-out-expo) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+
+  .lantern-sway {
+    transform-origin: 50% 0;
+    animation: sway 6s ease-in-out infinite alternate;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+}
+
+@keyframes sway {
+  from {
+    rotate: -2.5deg;
+  }
+  to {
+    rotate: 2.5deg;
+  }
+}
